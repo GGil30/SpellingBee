@@ -68,7 +68,28 @@ public class SpellingBee {
     // TODO: For each word in words, use binary search to see if it is in the dictionary.
     //  If it is not in the dictionary, remove it from words.
     public void checkWords() {
-        // YOUR CODE HERE
+        for(int i = 0; i < words.size(); i++){
+            if(!(binarySearch(words.get(i), 0, DICTIONARY_SIZE))){
+                words.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public boolean binarySearch(String word, int start, int end){
+        int mid = (start + end) / 2;
+        if(word.equals(DICTIONARY[mid])){
+            return true;
+        }
+        if (start == end){
+            return false;
+        }
+//        if(// SOME COMP WITH STRINGS)
+//                {
+//                        return binarySearch(word, start, mid -1);
+//                }
+//
+//        return binarySearch(word,mid + 1, end);
     }
 
     // Prints all valid words to wordList.txt
