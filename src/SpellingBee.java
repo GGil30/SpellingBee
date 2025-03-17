@@ -56,7 +56,7 @@ public class SpellingBee {
             return;
         }
         for(int i = 0; i < letters.length(); i++){
-            makeWords(s +letters.substring(i), letters.substring(0,i) + letters.substring(i+1));
+            makeWords(s +letters.charAt(i), letters.substring(0,i) + letters.substring(i+1));
         }
 
 
@@ -140,7 +140,7 @@ public class SpellingBee {
         if(word.equals(DICTIONARY[mid])){
             return true;
         }
-        if (start == end){
+        if (start > end){
             return false;
         }
         if(word.compareTo(DICTIONARY[mid]) < 0) {
