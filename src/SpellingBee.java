@@ -44,13 +44,72 @@ public class SpellingBee {
     //  Store them all in the ArrayList words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void generate() {
-        // YOUR CODE HERE — Call your recursive method!
+        makeWords("", letters);
+    }
+
+    public void makeWords(String s, String letters){
+        if(!s.equals("")){
+            words.add(s);
+            System.out.println(s);
+        }
+        if(letters.equals("")){
+            return;
+        }
+        for(int i = 0; i < letters.length(); i++){
+            makeWords(s +letters.substring(i), letters.substring(0,i) + letters.substring(i+1));
+        }
+
+
+
     }
 
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void sort() {
-        // YOUR CODE HERE
+        mergeSort(0, words.size() - 1);
+    }
+
+    public ArrayList<String> mergeSort(int left, int right){
+        if (left == right){
+            ArrayList<String> newArr =  new ArrayList<String>();
+            newArr.add(words.get(left));
+            return newArr;
+        }
+        int mid = (left + right) / 2;
+        ArrayList<String> arr1 = mergeSort(left, mid);
+        ArrayList<String> arr2 = mergeSort(mid + 1, right);
+
+        return merge(arr1, arr2);
+
+    }
+
+    public ArrayList<String> merge(ArrayList<String> arr1, ArrayList<String> arr2){
+        ArrayList<String> toReturn = new ArrayList<String>();
+        int i = 0;
+        int j = 0;
+
+        while(i < arr1.size() && j < arr2.size()){
+            if(arr1.get(i).compareTo(arr2.get(j)) < 0){
+                toReturn.add(arr1.get(i));
+                i++;
+            }
+            else{
+                toReturn.add(arr2.get(j));
+                j++;
+            }
+        }
+
+        while(i<arr1.size()){
+            toReturn.add(arr1.get(i));
+            i++;
+        }
+
+        while(j<arr2.size()){
+            toReturn.add(arr1.get(j));
+            j++;
+        }
+
+        return toReturn;
     }
 
     // Removes duplicates from the sorted list.
@@ -84,12 +143,10 @@ public class SpellingBee {
         if (start == end){
             return false;
         }
-//        if(// SOME COMP WITH STRINGS)
-//                {
-//                        return binarySearch(word, start, mid -1);
-//                }
-//
-//        return binarySearch(word,mid + 1, end);
+        if(word.compareTo(DICTIONARY[mid]) < 0) {
+                    return binarySearch(word, start, mid -1);
+                }
+        return binarySearch(word,mid + 1, end);
     }
 
     // Prints all valid words to wordList.txt
